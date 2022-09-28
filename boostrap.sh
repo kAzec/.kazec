@@ -1,5 +1,7 @@
 #! /usr/bin/env zsh
 
+# /bin/zsh -c "$(curl -fsSL 'https://raw.githubusercontent.com/kAzec/.kazec/main/boostrap.sh?token=TOKEN_NEEDED')"
+
 DOTFILES="$HOME/.kazec"
 DOTFILES_REPO='git@github.com:kAzec/.kazec.git'
 BREW='/opt/homebrew/bin/brew'
@@ -16,14 +18,18 @@ if [ ! -d $DOTFILES ]; then
   echo 'Please add the following pubkey to GitHub SSH keys (Copied).'
   cat "$tempkey.pub" | tee /dev/tty | pbcopy
 
-  read -s -k '?Press any key to open GitHub...'
+  read -s -k '?Press any key to open GitHub...'$'\n'
   open 'https://github.com/settings/ssh/new'
 
-  read -s -k '?Press any key to continue cloning...'
-  git -c core.sshCommand="ssh -i $tempkey" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
+  read -s -k '?Press any key to continue cloning...'$'\n'
+  git -c core.sshCommand="ssh -i $tempkey" clone $DOTFILES_REPO $DOTFILES
   
   echo 'Linking dot files...'
-  find $DOTFILES ! -name ".*" -maxdepth 1 -execdir ln -vs "$DOTFILES/{}" "$HOME/.{}" ';'
+  for src in $(find $DOTFILES ! -name ".*" ! -name $(basename $0) -maxdepth 1); do
+    dest="$HOME/.$(basename $src)"
+    [ -e $dest ] && echo "Backing up $dest" && mv $dest $dest.bak
+    ln -vs $src $dest
+  done
 
   $DOTFILES/zsh/boostrap.sh
   echo "All done, it's now safe to remove previously added SSH key from GitHub."
@@ -32,7 +38,7 @@ fi
 
 function setup_homebrew()
 {
-  if [ ! $(command -v brew) ]; then
+  if [ ! -f $BREW ]; then
     echo 'Install Homebrew...'
     ring
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -45,7 +51,7 @@ function setup_homebrew()
   if [ ! $(command -v parallel) ]; then
     echo 'Installing gnu-parallel...'
     brew install parallel
-    echo 'will cite' | parallel --citation > /dev/null 2>&1 
+    echo 'will cite' | parallel --citation > /dev/null 2>&1
   fi
 }
 
