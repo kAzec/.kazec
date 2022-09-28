@@ -1,0 +1,9 @@
+[submodule ".hammerspoon"]
+	path = hammerspoon
+	url = https://github.com/kAzec/.hammerspoon.git
+[submodule "config/karabiner"]
+	path = config/karabiner
+	url = https://github.com/kAzec/.karabiner.git
+[submodule "zsh/prezto"]
+	path = zsh/prezto
+	url = https://github.com/kAzec/prezto.git

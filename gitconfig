@@ -1,0 +1,17 @@
+[init]
+	defaultBranch = main
+[gpg]
+	format = ssh
+[user]
+	name = kAzec
+	email = kazecx@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDMSNg/+D7E/4U7agLTkWqOPalD2kQuOV8Ql9fn6nlXi kazecx@gmail.com
+[safe]
+	directory = *
+[pull]
+	rebase = true
+	autoStash = true
+[push]
+	autoSetupRemote = true
+[advice]
+	detachedHead = false
