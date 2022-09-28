@@ -13,6 +13,8 @@ if [ ! -d $DOTFILES ]; then
   tempkey=$(mktemp)
   ssh-keygen -t ed25519 -C "kazecx@gmail.com" -N '' -f $tempkey
   echo 'Please add the following pubkey to GitHub SSH keys (Copied).'
+  read -s -k '?Press any key to open GitHub...'
+  open 'https://github.com/settings/ssh/new'
   cat "$tempkey.pub" | tee /dev/tty | pbcopy
   read -s -k '?Press any key to continue.'
   echo 'Cloning dot files...'
