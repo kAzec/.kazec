@@ -7,23 +7,27 @@ BREWFILE='https://gist.githubusercontent.com/kAzec/9cb61c9482daae6ac7673047a9df3
 XCODE='/Applications/Xcode.app'
 
 alias ring='afplay /System/Library/Sounds/Ping.aiff -v 2'
+alias echo='echo; echo'
 
 if [ ! -d $DOTFILES ]; then
   echo 'Generating one-time SSH key for cloning dot files...'
   tempkey=$(mktemp)
   ssh-keygen -t ed25519 -C "kazecx@gmail.com" -N '' -f $tempkey
   echo 'Please add the following pubkey to GitHub SSH keys (Copied).'
+  cat "$tempkey.pub" | tee /dev/tty | pbcopy
+
   read -s -k '?Press any key to open GitHub...'
   open 'https://github.com/settings/ssh/new'
-  cat "$tempkey.pub" | tee /dev/tty | pbcopy
-  read -s -k '?Press any key to continue.'
-  echo 'Cloning dot files...'
-  git clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
-  echo '...dot files OK.'
-  echo "It's now safe to remove previously added SSH key from GitHub."
+
+  read -s -k '?Press any key to continue cloning...'
+  git -c core.sshCommand="ssh -i $tempkey" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
   
   echo 'Linking dot files...'
   find $DOTFILES ! -name ".*" -maxdepth 1 -execdir ln -vs "$DOTFILES/{}" "$HOME/.{}" ';'
+
+  $DOTFILES/zsh/boostrap.sh
+  echo "All done, it's now safe to remove previously added SSH key from GitHub."
+  exit
 fi
 
 function setup_homebrew()
@@ -57,7 +61,6 @@ function setup_fish()
   fi
 }
 
-setup_zsh && echo '...zsh shell OK'
 setup_homebrew && echo '...Homebrew OK'
 setup_fish && echo '...fish shell OK'
 
@@ -112,4 +115,4 @@ setup_xcode && echo '...Xcode OK'
 setup_brew_apps && echo '...Homebrew Apps OK'
 " | env_parallel
 
-misc && echo '...Misc OK'
+setup_misc && echo '...Misc OK'
