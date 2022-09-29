@@ -1,9 +1,15 @@
 [submodule ".hammerspoon"]
 	path = hammerspoon
-	url = https://github.com/kAzec/.hammerspoon.git
+	url = git@github.com:kAzec/.hammerspoon.git
+	update = rebase
+	branch = master
 [submodule "config/karabiner"]
 	path = config/karabiner
-	url = https://github.com/kAzec/.karabiner.git
+	url = git@github.com:kAzec/.karabiner.git
+	update = rebase
+	branch = master
 [submodule "zsh/prezto"]
 	path = zsh/prezto
-	url = https://github.com/kAzec/prezto.git
+	url = git@github.com:kAzec/prezto.git
+	update = rebase
+	branch = master
