@@ -39,7 +39,7 @@ fi
 function setup_homebrew()
 {
   if [ ! -f $BREW ]; then
-    echo 'Install Homebrew...'
+    echo 'Installing Homebrew...'
     ring
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$($BREW shellenv)"
@@ -60,7 +60,10 @@ function setup_fish()
   if [ ! $(command -v fish) ]; then
     echo 'Installing fish shell...'
     brew install fish
-    echo $(which fish) | sudo tee -a /etc/shells
+  fi
+
+  if ! grep -q fish /etc/shells; then
+    echo $(which fish) | sudo tee -a /etc/shells > /dev/null
     
     ring
     chsh -s $(which fish)
