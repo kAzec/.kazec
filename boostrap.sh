@@ -115,6 +115,8 @@ function setup_misc()
     sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.bak
     sudo mv /etc/pam.d/sudo.new /etc/pam.d/sudo
   fi
+
+  $DOTFILES/sync/sync.fish
 }
 
 echo 'Running multiple commands in parallel...'
