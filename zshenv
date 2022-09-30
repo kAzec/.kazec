@@ -1,1 +1,1 @@
-zsh/prezto/runcoms/zshenv
+zsh/.zshenv
