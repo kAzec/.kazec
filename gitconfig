@@ -13,5 +13,16 @@
 	autoStash = true
 [push]
 	autoSetupRemote = true
+[alias]
+	ignore = update-index --assume-unchanged
+	unignore = update-index --no-assume-unchanged
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
 [advice]
 	detachedHead = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[status]
+	aheadBehind = false
