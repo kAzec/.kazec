@@ -92,6 +92,7 @@ abbr -g gpA 'git push --all && git push --tags'
 abbr -g gpt 'git push --tags'
 abbr -g gP 'git pull'
 abbr -g gPr 'git pull --rebase'
+abbr -g gPp 'branch=(git-branch-current 2>/dev/null) git pull origin $branch && git push origin $branch'
 abbr -g gpp 'branch=(git-branch-current 2>/dev/null) git pull origin $branch && git push origin $branch'
 
 # Rebase (r)
@@ -173,15 +174,19 @@ function git-branch-current
     end
 end
 
-abbr -g goa 'git-open-all'
-function git-open-all
-    argparse -i 'd/dirty_only=?' 'l/max_level=?' 'o/opener=?' -- $argv
+abbr -g gea "git-exec-all"
+abbr -g goa "git-exec-all -d1 --exec='$GIT_OPENER {}'"
+abbr -g gfa "git-exec-all --exec='git -C {} fetch'"
+abbr -g gpa "git-exec-all --exec='git -C {} push'"
+abbr -g gPa "git-exec-all --exec='git -C {} pull'"
+abbr -g gPpa "git-exec-all --exec='git -C {} pull'"
+abbr -g gppa "git-exec-all --exec='git -C {} pull && git -C {} push'"
+function git-exec-all
+    argparse -i 'd/dirty_only=?' 'l/max_level=?' 'exec=?' 'v/verbose' -- $argv
 
-    [ -z $_flag_max_level ] && set -l _flag_max_level 2
-    [ -z $_flag_max_level ] && set -l _flag_max_level 2
-    [ -z $_flag_dirty_only ] && set -l _flag_dirty_only 1
-    [ -z $_flag_opener ] && set -l _flag_opener $GIT_OPENER
-    [ -z $_flag_opener ] && set -l _flag_opener open
+    [ -z $_flag_dirty_only ] && set -l _flag_dirty_only 0
+    [ -z $_flag_max_level ] && set -l _flag_max_level 3
+    [ -z $_flag_exec ] && set -l _flag_exec 'git status -C'
 
     set -l dirs .
     [ (count $argv) -gt 0 ] && set dirs $argv
@@ -190,18 +195,22 @@ function git-open-all
     if [ (count $git_dirs) -eq 0 ]
         echo 'No git repositories found.'
         return 1
+    else if set -q _flag_verbose
+        echo "Running $_flag_exec in:"
+        printf '%s\n' (string sub -e -5 $git_dirs)
     end
 
-    function git-open -V _flag_dirty_only -V _flag_opener -a dir
+    function git-exec -V _flag_dirty_only -V _flag_exec -a dir
         if [ $_flag_dirty_only -eq 0 ] || git-dirty $dir
-            printf "Opening %s...\n" (realpath (basename $dir))
-            $_flag_opener $dir
+            set -l cmd (string replace -a '{}' (realpath $dir) $_flag_exec)
+            echo (set_color -o black)'Command: '(set_color brred)$cmd(set_color normal)
+            eval $cmd
         end
     end
 
     if [ (count $git_dirs) -eq 1 ]
-        git-open (dirname $git_dirs)
+        git-exec (dirname $git_dirs)
     else
-        env_parallel --env git-open -k "git-open (dirname '{}')" ::: $git_dirs
+        env_parallel --env git-exec -k "git-exec (dirname '{}')" ::: $git_dirs
     end
 end

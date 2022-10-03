@@ -79,6 +79,7 @@ if set -q WARP_ABBR_COMPAT_ALIAS
     for a in $new_abbrs
         if string match -rq "\s--\s(?<name>\w+)\s'?(?<expansion>.+)'?" -- $a
             if not contains $name $old_abbrs
+                set -l expansion (string unescape -- $expansion)
                 set -l alias_desc "$name=\'$expansion\'"
                 set -a WARP_ABBR_COMPAT_ALIAS $alias_desc
 
