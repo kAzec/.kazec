@@ -11,22 +11,41 @@ else
 fi
 export BREWFILE='https://gist.githubusercontent.com/kAzec/9cb61c9482daae6ac7673047a9df3bf2/raw/Brewfile'
 export XCODE='/Applications/Xcode.app'
+export SSH_KEY_MAIL='kazecx@gmail.com'
+export SSH_KEY_NAME='kazecx_gmail'
 
 alias ring='afplay /System/Library/Sounds/Ping.aiff -v 2'
 alias echo='echo; echo'
 
 if [[ ! -d $DOTFILES ]]; then
-  echo 'Generating one-time SSH key for cloning dot files...'
-  tempkey=$(mktemp)
-  ssh-keygen -t ed25519 -C "kazecx@gmail.com" -N '' -f $tempkey
-  echo 'Please add the following pubkey to GitHub SSH keys (Copied).'
-  cat "$tempkey.pub" | tee /dev/tty | pbcopy
+  function setup_ssh_file {
+    if [ ! -f $1 ]; then
+      echo "Generating GitHub $2 key for the first time..."
+      ssh-keygen -t ed25519 -C $SSH_KEY_MAIL -N '' -f $1
 
-  read -s -k '?Press any key to open GitHub...'$'\n'
-  open 'https://github.com/settings/ssh/new'
+      echo 'Please add the following pubkey to GitHub. (Copied)'
+      echo "$2 key:"
+      cat "$1.pub" | tee /dev/tty | pbcopy
 
-  read -s -k '?Press any key to continue cloning...'$'\n'
-  git -c core.sshCommand="ssh -i $tempkey" clone $DOTFILES_REPO $DOTFILES
+      read -s -k '?Press any key to open GitHub...'$'\n'
+      open 'https://github.com/settings/ssh/new'
+    fi
+  }
+
+  local auth_file=$HOME/.ssh/${SSH_KEY_NAME}.ed25519
+  local sig_file=$HOME/.ssh/${SSH_KEY_NAME}.signing.ed25519
+  setup_ssh_file $auth_file 'Auth'
+  setup_ssh_file $sig_file 'Signning'
+
+  while read -s -k "?Press any key when you're ready to clone dot files..."$'\n'; do
+    ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com
+    if [[ $? != 255 ]]; then
+      break
+    fi
+  done
+
+  echo 'Cloning dot files...'
+  git -c core.sshCommand="ssh -i $auth_file" clone $DOTFILES_REPO $DOTFILES
 
   echo 'Linking dot files...'
   for src in $(find $DOTFILES ! -name ".*" ! -name $(basename $0) -maxdepth 1); do
@@ -35,13 +54,21 @@ if [[ ! -d $DOTFILES ]]; then
     ln -vs $src $dest
   done
 
+  local config_local=$HOME/.config/git/config.local
+  if ! grep -q 'signingKey' $config_local >/dev/null 2>&1; then
+    echo "Appending signing key to $config_local..."
+    echo "
+[user]
+  signingkey = $(cat $sig_file.pub)
+" >>! $HOME/.config/git/config.local
+  fi
+
   $DOTFILES/zsh/boostrap.sh
-  echo "All done, it's now safe to remove previously added SSH key from GitHub."
+
   exit
 fi
 
-function setup_homebrew()
-{
+function setup_homebrew {
   if [[ ! -f $BREW ]]; then
     echo 'Installing Homebrew...'
     ring
@@ -59,8 +86,7 @@ function setup_homebrew()
   fi
 }
 
-function setup_fish()
-{
+function setup_fish {
   if ! command -v fish >/dev/null 2>&1; then
     echo 'Installing fish shell...'
     brew install fish
@@ -81,8 +107,7 @@ source `which env_parallel.zsh`
 
 env_parallel --record-env
 
-function setup_rust()
-{
+function setup_rust {
   echo 'Installing Rust via rustup...'
 
   if ! command -v rustup >/dev/null 2>&1; then
@@ -90,8 +115,7 @@ function setup_rust()
   fi
 }
 
-function setup_xcode()
-{
+function setup_xcode {
   [[ -d $XCODE ]] && return 0
 
   echo 'Install Latest Xcode...'
@@ -108,8 +132,7 @@ function setup_xcode()
   xcodebuild -runFirstLaunch
 }
 
-function setup_brew_apps()
-{
+function setup_brew_apps {
   echo 'Restoring Homebrew Apps...'
 
   $BREW tap Homebrew/bundle
@@ -124,8 +147,7 @@ setup_xcode && echo '...Xcode OK'
 setup_brew_apps && echo '...Homebrew Apps OK'
 " | env_parallel
 
-function setup_misc()
-{
+function setup_misc {
   echo 'Copying SF-Mono fonts...'
   cp /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/* $HOME/Library/Fonts >/dev/null 2>&1
 
