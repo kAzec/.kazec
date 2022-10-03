@@ -1,3 +1,100 @@
+############################################################
+# Env
+############################################################
+set -x LANG en_US.UTF-8
+set -x EDITOR vim
+set -x GIT_OPENER fork
+set -x GIT_EDITOR $EDITOR
+set -x FISH_HOME $__fish_config_dir
+
+set -x GOPATH $HOME/.go
+set -x CURL_HOME $HOME/.config/curl
+set -x PIP_CONFIG_FILE $HOME/.config/pip/config
+
+set -x PATH $HOME/{.scripts,.cargo/bin} $PATH
+set -x CDPATH $CDPATH . ~ $HOME/Projects
+
+begin
+    set -l brew '/opt/homebrew/bin/brew'
+    if [ (/usr/bin/uname -m) != 'arm64' ]
+        set -l brew '/usr/local/bin/brew'
+    end
+    [ -f $brew ] && eval ($brew shellenv)
+end
+
+set -x HOMEBREW_NO_ANALYTICS 1
+set -x HOMEBREW_NO_AUTO_UPDATE 1
+set -x HOMEBREW_NO_GITHUB_API 1
+set -x HOMEBREW_NO_INSTALL_CLEANUP 1
+set -x HOMEBREW_NO_INSTALL_UPGRADE 1
+set -x HOMEBREW_NO_INSECURE_REDIRECT 1
+
+############################################################
+# Prompt
+############################################################
+
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+    if [ $TERM_PROGRAM = WarpTerminal ]
+        [ -z $FISH_ROOT_PID ] && set -x FISH_ROOT_PID $fish_pid
+        if [ $fish_pid = $FISH_ROOT_PID ]
+            # Disable custom prompt in root Warp shell
+            functions -e fish_prompt
+            function fish_prompt; end
+            fish_prompt >/dev/null
+
+            # Abbreviation not supported in Warp, replace with alias
+            set -g WARP_ABBR_COMPAT_ALIAS 1
+        end
+    else
+        set -g async_prompt_functions _pure_prompt_git
+        function _pure_prompt_git_loading_indicator
+            echo (set_color brblack)…(set_color normal)
+        end
+    end
+end
+
+############################################################
+# Sources
+############################################################
+
+if set -q WARP_ABBR_COMPAT_ALIAS
+    set -g WARP_ABBR_COMPAT_ALIAS (string split -n '\n' (abbr -l))
+end
+
+# Main
+source $FISH_HOME/main/init.fish
+
+# Local
+if [ -f $FISH_HOME/local/init.fish ]
+    source $FISH_HOME/local/init.fish
+end
+
+# abbr -> alias
+if set -q WARP_ABBR_COMPAT_ALIAS
+    set -l old_abbrs $WARP_ABBR_COMPAT_ALIAS
+    set -l new_abbrs (string split -n '\n' (abbr -s))
+    set -e WARP_ABBR_COMPAT_ALIAS
+    echo $old_abbrs
+    echo $new_abbrs
+    for a in $new_abbrs
+        if string match -rq "\s--\s(?<name>\w+)\s'?(?<expansion>.+)'?" -- $a
+            if not contains $name $old_abbrs
+                set -l alias_desc "$name=\'$expansion\'"
+                set -a WARP_ABBR_COMPAT_ALIAS $alias_desc
+
+                set -l wraps --wraps (string escape -- $expansion)
+                set -l desc --description (string escape -- "abbr: $alias_desc")
+                set -l body "echo (set_color -o black)'Command: '(set_color brred)'$alias_desc'(set_color normal); $expansion \$argv"
+                echo "function $name $wraps $desc; $body; end" | source
+            end
+        end
+    end
+end
+
+# Autojump
+set -l autojump $HOMEBREW_PREFIX/share/autojump/autojump.fish; [ -f $autojump ] && source $autojump
+
+# Parallel
+if [ -f (which env_parallel.fish) ]
+    source (which env_parallel.fish)
 end
