@@ -1,5 +1,5 @@
 ############################################################
-# Env
+# Variables
 ############################################################
 set -x LANG en_US.UTF-8
 set -x EDITOR vim
@@ -61,12 +61,15 @@ if set -q WARP_ABBR_COMPAT_ALIAS
     set -g WARP_ABBR_COMPAT_ALIAS (string split -n '\n' (abbr -l))
 end
 
-# Main
-source $FISH_HOME/main/init.fish
+# Git
+source $FISH_HOME/git.fish
+
+# Misc
+source $FISH_HOME/misc.fish
 
 # Local
-if [ -f $FISH_HOME/local/init.fish ]
-    source $FISH_HOME/local/init.fish
+if [ -f $FISH_HOME/local.fish ]
+    source $FISH_HOME/local.fish
 end
 
 # abbr -> alias

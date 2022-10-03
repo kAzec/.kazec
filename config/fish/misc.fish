@@ -1,6 +1,3 @@
-# Git
-source $FISH_HOME/main/git.fish
-
 # SSH
 if not ssh-add -l >/dev/null 2>&1
     ssh-add --apple-use-keychain --apple-load-keychain (string sub -e -4 $HOME/.ssh/*.pub) >/dev/null 2>&1

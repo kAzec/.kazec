@@ -175,16 +175,15 @@ function git-branch-current
 end
 
 abbr -g gea "git-exec-all"
-abbr -g goa "git-exec-all -d1 --exec='$GIT_OPENER {}'"
+abbr -g goa "git-exec-all --dirty --exec='$GIT_OPENER {}'"
 abbr -g gfa "git-exec-all --exec='git -C {} fetch'"
 abbr -g gpa "git-exec-all --exec='git -C {} push'"
 abbr -g gPa "git-exec-all --exec='git -C {} pull'"
 abbr -g gPpa "git-exec-all --exec='git -C {} pull'"
 abbr -g gppa "git-exec-all --exec='git -C {} pull && git -C {} push'"
 function git-exec-all
-    argparse -i 'd/dirty_only=?' 'l/max_level=?' 'exec=?' 'v/verbose' -- $argv
+    argparse -i 'd/dirty' 'l/max_level=?' 'exec=?' 'v/verbose' -- $argv
 
-    [ -z $_flag_dirty_only ] && set -l _flag_dirty_only 0
     [ -z $_flag_max_level ] && set -l _flag_max_level 3
     [ -z $_flag_exec ] && set -l _flag_exec 'git status -C'
 
@@ -200,8 +199,8 @@ function git-exec-all
         printf '%s\n' (string sub -e -5 $git_dirs)
     end
 
-    function git-exec -V _flag_dirty_only -V _flag_exec -a dir
-        if [ $_flag_dirty_only -eq 0 ] || git-dirty $dir
+    function git-exec -V _flag_dirty -V _flag_exec -a dir
+        if set -q _flag_dirty || git-dirty $dir
             set -l cmd (string replace -a '{}' (realpath $dir) $_flag_exec)
             echo (set_color -o black)'Command: '(set_color brred)$cmd(set_color normal)
             eval $cmd
