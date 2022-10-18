@@ -1,6 +1,6 @@
 #! /usr/bin/env zsh
 
-# /bin/zsh -c "$(curl -fsSL 'https://raw.githubusercontent.com/kAzec/.kazec/master/boostrap.sh')"
+# /bin/zsh -ic "$(curl -fsSL 'https://raw.githubusercontent.com/kAzec/.kazec/master/boostrap.sh')"
 
 export DOTFILES="$HOME/.kazec"
 export DOTFILES_REPO='git@github.com:kAzec/.kazec.git'
@@ -32,13 +32,14 @@ if [[ ! -d $DOTFILES ]]; then
     fi
   }
 
-  local auth_file=$HOME/.ssh/${SSH_KEY_NAME}.ed25519
-  local sig_file=$HOME/.ssh/${SSH_KEY_NAME}.signing.ed25519
+  local auth_file=$HOME/.ssh/$SSH_KEY_NAME.ed25519
+  local sig_file=$HOME/.ssh/$SSH_KEY_NAME.signing.ed25519
+
   setup_ssh_file $auth_file 'Auth'
   setup_ssh_file $sig_file 'Signning'
 
   while read -s -k "?Press any key when you're ready to clone dot files..."$'\n'; do
-    ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com
+    ssh -i $auth_file -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com
     if [[ $? != 255 ]]; then
       break
     fi
@@ -48,11 +49,20 @@ if [[ ! -d $DOTFILES ]]; then
   git -c core.sshCommand="ssh -i $auth_file" clone $DOTFILES_REPO $DOTFILES
 
   echo 'Linking dot files...'
-  for src in $(find $DOTFILES ! -name ".*" ! -name $(basename $0) -maxdepth 1); do
+  local timestamp=$(date +%s)
+  for src in $(find $DOTFILES ! -name ".*" ! -name "README.md" ! -name $(basename $0) -maxdepth 1); do
     dest="$HOME/.$(basename $src)"
-    [[ -e $dest ]] && echo "Backing up $dest" && mv $dest $dest.bak
+    if [[ -e $dest ]]; then
+      echo "Backing up $dest to $dest.$timestamp"
+      mv -v $dest $dest.$timestamp
+    fi
     ln -vs $src $dest
   done
+
+  if [[ -d $HOME/.ssh.$timestamp ]]; then
+    echo "Merging SSH config..."
+    mv -v $HOME/.ssh.$timestamp/* $HOME/.ssh/ && rm -d $HOME/.ssh.$timestamp
+  fi
 
   local config_local=$HOME/.config/git/config.local
   if ! grep -q 'signingKey' $config_local >/dev/null 2>&1; then
@@ -63,7 +73,7 @@ if [[ ! -d $DOTFILES ]]; then
 " >>! $HOME/.config/git/config.local
   fi
 
-  $DOTFILES/zsh/boostrap.sh
+  $DOTFILES/boostrap.sh
 
   exit
 fi
