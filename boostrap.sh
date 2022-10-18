@@ -46,7 +46,7 @@ if [[ ! -d $DOTFILES ]]; then
   done
 
   echo 'Cloning dot files...'
-  git -c core.sshCommand="ssh -i $auth_file" clone $DOTFILES_REPO $DOTFILES
+  git -c core.sshCommand="ssh -i $auth_file" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
 
   echo 'Linking dot files...'
   local timestamp=$(date +%s)
