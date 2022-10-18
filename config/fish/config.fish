@@ -11,6 +11,10 @@ set -x GOPATH $HOME/.go
 set -x CURL_HOME $HOME/.config/curl
 set -x PIP_CONFIG_FILE $HOME/.config/pip/config
 
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_DATA_HOME $HOME/.local/share
+set -x XDG_STATE_HOME $HOME/.local/state
+
 set -x PATH $HOME/{.scripts,.cargo/bin} $PATH
 set -x CDPATH $CDPATH . ~ $HOME/Projects
 

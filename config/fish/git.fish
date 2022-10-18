@@ -127,7 +127,7 @@ abbr -g gtv 'git verify-tag'
 # Working Copy (w)
 abbr -g gwr 'git reset --soft'
 abbr -g gwr1 'git reset --soft'
-abbr -g gwR 'git reset --hard HEAD~1'
+abbr -g gwR 'git reset --hard'
 abbr -g gwR1 'git reset --hard HEAD~1'
 abbr -g gwc 'git clean --dry-run'
 abbr -g gwC 'git clean --force'
