@@ -1,6 +1,6 @@
 #! /usr/bin/env zsh
 
-# /bin/zsh -c "$(curl -fsSL 'https://raw.githubusercontent.com/kAzec/.kazec/main/boostrap.sh?token=TOKEN_NEEDED')"
+# /bin/zsh -c "$(curl -fsSL 'https://raw.githubusercontent.com/kAzec/.kazec/master/boostrap.sh')"
 
 export DOTFILES="$HOME/.kazec"
 export DOTFILES_REPO='git@github.com:kAzec/.kazec.git'
