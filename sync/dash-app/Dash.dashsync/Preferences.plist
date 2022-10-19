@@ -419,7 +419,7 @@
 			<key>fish</key>
 			<dict>
 				<key>date</key>
-				<date>2022-10-01T20:02:49Z</date>
+				<date>2022-10-19T17:39:58Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
@@ -545,7 +545,7 @@
 			<key>http://kapeli.com/feeds/Lua_5.4.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2022-09-30T13:52:41Z</date>
+				<date>2022-10-19T17:39:59Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Man_Pages.xml</key>
 			<dict>
@@ -608,7 +608,7 @@
 			<key>http://kapeli.com/feeds/Lua_5.3.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2022-09-30T13:52:41Z</date>
+				<date>2022-10-19T17:39:55Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/Tornado.xml</key>
 			<dict>
@@ -645,6 +645,7 @@
 				<string>~/Library/Application Support/Dash/Cheat Sheets/LLDB Commands/LLDB_Commands.docset</string>
 				<string>~/Library/Application Support/Dash/DocSets/Man_Pages/Man Pages.docset</string>
 				<string>~/Library/Application Support/Dash/User Contributed/fish/fish.docset</string>
+				<string>~/Library/Application Support/Dash/DocSets/Lua_5.4/Lua.docset</string>
 			</array>
 			<key>name</key>
 			<string>Apple API Reference</string>
