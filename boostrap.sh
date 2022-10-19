@@ -94,6 +94,10 @@ function setup_homebrew {
     brew install parallel
     echo 'will cite' | parallel --citation > /dev/null 2>&1
   fi
+
+  echo 'Restoring Homebrew Apps...'
+  $BREW update
+  $BREW bundle --file=$BREWFILE
 }
 
 function setup_fish {
@@ -109,13 +113,6 @@ function setup_fish {
     chsh -s $(which fish)
   fi
 }
-
-setup_homebrew && echo '...Homebrew OK'
-setup_fish && echo '...fish shell OK'
-
-source `which env_parallel.zsh`
-
-env_parallel --record-env
 
 function setup_rust {
   echo 'Installing Rust via rustup...'
@@ -142,20 +139,6 @@ function setup_xcode {
   xcodebuild -runFirstLaunch
 }
 
-function setup_brew_apps {
-  echo 'Restoring Homebrew Apps...'
-  $BREW update
-  $BREW bundle --file=$BREWFILE
-}
-
-echo 'Running multiple commands in parallel...'
-
-printf "
-setup_rust && echo '...Rust OK'
-setup_xcode && echo '...Xcode OK'
-setup_brew_apps && echo '...Homebrew Apps OK'
-" | env_parallel
-
 function setup_misc {
   echo 'Copying SF-Mono fonts...'
   cp /System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts/* $HOME/Library/Fonts >/dev/null 2>&1
@@ -171,4 +154,8 @@ function setup_misc {
   $DOTFILES/sync/sync.fish
 }
 
+setup_homebrew && echo '...Homebrew OK'
+setup_xcode && echo '...Xcode OK'
+setup_fish && echo '...fish OK'
+setup_rust && echo '...Rust OK'
 setup_misc && echo '...Misc OK'
