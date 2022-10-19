@@ -17,66 +17,64 @@ export SSH_KEY_NAME='kazecx_gmail'
 alias ring='afplay /System/Library/Sounds/Ping.aiff -v 2'
 alias echo='echo; echo'
 
-if [[ ! -d $DOTFILES ]]; then
-  function setup_ssh_file {
-    if [ ! -f $1 ]; then
-      echo "Generating GitHub $2 key for the first time..."
-      ssh-keygen -t ed25519 -C $SSH_KEY_MAIL -N '' -f $1
+function setup_dotfiles {
+  if [[ ! -d $DOTFILES ]]; then
+    function setup_ssh_file {
+      if [ ! -f $1 ]; then
+        echo "Generating GitHub $2 key for the first time..."
+        ssh-keygen -t ed25519 -C $SSH_KEY_MAIL -N '' -f $1
 
-      echo 'Please add the following pubkey to GitHub. (Copied)'
-      echo "$2 key:"
-      cat "$1.pub" | tee /dev/tty | pbcopy
+        echo 'Please add the following pubkey to GitHub. (Copied)'
+        echo "$2 key:"
+        cat "$1.pub" | tee /dev/tty | pbcopy
 
-      read -s -k '?Press any key to open GitHub...'$'\n'
-      open 'https://github.com/settings/ssh/new'
+        read -s -k '?Press any key to open GitHub...'$'\n'
+        open 'https://github.com/settings/ssh/new'
+      fi
+    }
+
+    local auth_file=$HOME/.ssh/$SSH_KEY_NAME.ed25519
+    local sig_file=$HOME/.ssh/$SSH_KEY_NAME.signing.ed25519
+
+    setup_ssh_file $auth_file 'Auth'
+    setup_ssh_file $sig_file 'Signning'
+
+    while read -s -k "?Press any key when you're ready to clone dot files..."$'\n'; do
+      ssh -i $auth_file -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com
+      if [[ $? != 255 ]]; then
+        break
+      fi
+    done
+
+    echo 'Cloning dot files...'
+    git -c core.sshCommand="ssh -i $auth_file" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
+
+    echo 'Linking dot files...'
+    local timestamp=$(date +%s)
+    for src in $(find $DOTFILES ! -name ".*" ! -name "README.md" ! -name $(basename $0) -maxdepth 1); do
+      dest="$HOME/.$(basename $src)"
+      if [[ -e $dest ]]; then
+        echo "Backing up $dest to $dest.$timestamp"
+        mv -v $dest $dest.$timestamp
+      fi
+      ln -vs $src $dest
+    done
+
+    if [[ -d $HOME/.ssh.$timestamp ]]; then
+      echo "Merging SSH config..."
+      mv -v $HOME/.ssh.$timestamp/* $HOME/.ssh/ && rm -d $HOME/.ssh.$timestamp
     fi
-  }
 
-  local auth_file=$HOME/.ssh/$SSH_KEY_NAME.ed25519
-  local sig_file=$HOME/.ssh/$SSH_KEY_NAME.signing.ed25519
-
-  setup_ssh_file $auth_file 'Auth'
-  setup_ssh_file $sig_file 'Signning'
-
-  while read -s -k "?Press any key when you're ready to clone dot files..."$'\n'; do
-    ssh -i $auth_file -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com
-    if [[ $? != 255 ]]; then
-      break
+    local config_local=$HOME/.config/git/config.local
+    if ! grep -q 'signingKey' $config_local >/dev/null 2>&1; then
+      echo "Appending signing key to $config_local..."
+      echo "
+  [user]
+    signingkey = $(cat $sig_file.pub)
+  " >>! $HOME/.config/git/config.local
     fi
-  done
-
-  echo 'Cloning dot files...'
-  git -c core.sshCommand="ssh -i $auth_file" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
-
-  echo 'Linking dot files...'
-  local timestamp=$(date +%s)
-  for src in $(find $DOTFILES ! -name ".*" ! -name "README.md" ! -name $(basename $0) -maxdepth 1); do
-    dest="$HOME/.$(basename $src)"
-    if [[ -e $dest ]]; then
-      echo "Backing up $dest to $dest.$timestamp"
-      mv -v $dest $dest.$timestamp
-    fi
-    ln -vs $src $dest
-  done
-
-  if [[ -d $HOME/.ssh.$timestamp ]]; then
-    echo "Merging SSH config..."
-    mv -v $HOME/.ssh.$timestamp/* $HOME/.ssh/ && rm -d $HOME/.ssh.$timestamp
   fi
-
-  local config_local=$HOME/.config/git/config.local
-  if ! grep -q 'signingKey' $config_local >/dev/null 2>&1; then
-    echo "Appending signing key to $config_local..."
-    echo "
-[user]
-  signingkey = $(cat $sig_file.pub)
-" >>! $HOME/.config/git/config.local
-  fi
-
-  $DOTFILES/boostrap.sh
-
-  exit
-fi
+}
 
 function setup_homebrew {
   if [[ ! -f $BREW ]]; then
@@ -160,6 +158,7 @@ function setup_misc {
   $DOTFILES/sync/sync.fish
 }
 
+setup_dotfiles && echo '...Dotfiles OK'
 setup_homebrew && echo '...Homebrew OK'
 setup_xcode && echo '...Xcode OK'
 setup_fish && echo '...fish OK'
