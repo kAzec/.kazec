@@ -21,7 +21,7 @@ set -x CDPATH $CDPATH . ~ $HOME/Projects
 begin
     set -l brew '/opt/homebrew/bin/brew'
     if [ (/usr/bin/uname -m) != 'arm64' ]
-        set -l brew '/usr/local/bin/brew'
+        set brew '/usr/local/bin/brew'
     end
     [ -f $brew ] && eval ($brew shellenv)
 end
