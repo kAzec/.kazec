@@ -55,3 +55,7 @@ function symcrash
     set -gx DEVELOPER_DIR (xcode-select --print-path)
     /Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash $argv
 end
+
+function update_brewfile
+    brew bundle dump --file=$HOME/.kazec/sync/brew/Brewfile --force
+end

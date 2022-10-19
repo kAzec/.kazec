@@ -9,7 +9,7 @@ if [[ $(/usr/bin/uname -m) == "arm64" ]]; then
 else
   export BREW="/usr/local/bin/brew"
 fi
-export BREWFILE='https://gist.githubusercontent.com/kAzec/9cb61c9482daae6ac7673047a9df3bf2/raw/Brewfile'
+export BREWFILE="$DOTFILES/sync/brew/Brewfile"
 export XCODE='/Applications/Xcode.app'
 export SSH_KEY_MAIL='kazecx@gmail.com'
 export SSH_KEY_NAME='kazecx_gmail'
@@ -144,9 +144,8 @@ function setup_xcode {
 
 function setup_brew_apps {
   echo 'Restoring Homebrew Apps...'
-
-  $BREW tap Homebrew/bundle
-  curl -fsSL $BREWFILE | $BREW bundle --file=-
+  $BREW update
+  $BREW bundle --file=$BREWFILE
 }
 
 echo 'Running multiple commands in parallel...'
