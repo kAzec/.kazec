@@ -129,7 +129,10 @@ function setup_xcode {
 
   $BREW install aria2
   $BREW install robotsandpencils/made/xcodes
-  xcodes install --latest --experimental-unxip
+
+  ring
+  echo 'Enter password to continue...'
+  sudo xcodes install --latest --experimental-unxip
 
   ring
   echo 'Accepting Xcode License...'
