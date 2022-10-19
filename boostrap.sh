@@ -142,7 +142,7 @@ function setup_xcode {
   xcodebuild -runFirstLaunch
 
   echo 'Prepare newly installed Xcode...'
-  $DOTFILES/scripts/xcode_post_update.swift
+  $DOTFILES/scripts/post_update_xcode
 }
 
 function setup_misc {

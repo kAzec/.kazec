@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys, re
+from signal import signal, SIGINT
+from time import sleep
+from danmu import DanMuClient
+from colorama import Style as style
+from subprocess import Popen, PIPE, TimeoutExpired
+
+danmu_client = None
+player_process = None
+
+def include_comment(content):
+    return True
+
+def start_player(url):
+    global player_process
+    player_process = Popen(['/usr/local/bin/streamlink', url, 'best', '--player', 'mpv'], stdout=PIPE, stderr=PIPE)
+
+    try:
+        player_process.communicate(timeout=1.0)
+    except TimeoutExpired:
+        pass
+
+def start_danmu(url):
+    global danmu_client
+    danmu_client = DanMuClient(url)
+
+    if not danmu_client or not danmu_client.isValid():
+        raise Exception('Unable to init module danmu.')
+
+    @danmu_client.danmu
+    def send(message):
+        (nick_name, content) = (message['NickName'], message['Content'])
+        if include_comment(content):
+            print('%s[%s]%s' % (style.DIM, nick_name, style.RESET_ALL))
+            print(content)
+
+    danmu_client.start(blockThread = True)
+
+def clean_up(*args):
+    player_process.terminate()
+    danmu_client.stop()
+
+if __name__ == '__main__':
+    if not len(sys.argv) >= 2:
+        sys.exit('Please provide an url or a room number to proceed.')
+
+    url = None
+
+    while True:
+        try:
+            room_number = int(sys.argv[1])
+            url = 'http://www.douyu.com/%s' % room_number
+            break
+        except ValueError:
+            print('Please give a valid room number expected.')
+
+    signal(SIGINT, clean_up)
+
+    start_player(url)
+    start_danmu(url)
+
+    clean_up()

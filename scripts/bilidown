@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys, time, pathlib, subprocess
+
+def download(url, timeout):
+    RETRIES_MAX = 10
+    retries = RETRIES_MAX
+    while True:
+        try:
+            timestamp = time.time()
+            subprocess.run(['you-get', url, '--format=mp4', '-o', '%s/Downloads' % (str(pathlib.Path.home()))], timeout=timeout)
+            elapsed = timestamp - time.time()
+
+            retries -= 1
+            if retries >= 0:
+                print('Download interrupted, will retry for %d times.' % (retries + 1))
+                continue
+            else:
+                break
+        except Exception:
+            retries = RETRIES_MAX
+            continue
+
+if __name__ == '__main__':
+    if len(sys.argv) >= 3:
+        download(sys.argv[1], int(sys.argv[2]))
+    elif len(sys.argv) == 2:
+        download(sys.argv[1], 10)
+    else:
+        print('Please provide an valid url')
