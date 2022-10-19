@@ -48,6 +48,7 @@ function setup_dotfiles {
 
     echo 'Cloning dot files...'
     git -c core.sshCommand="ssh -i $auth_file" clone --recurse-submodules -j8 $DOTFILES_REPO $DOTFILES
+    git -C $DOTFILES submodule foreach git checkout master
 
     echo 'Linking dot files...'
     local timestamp=$(date +%s)
