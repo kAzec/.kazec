@@ -1,6 +1,6 @@
 # SSH
 if not ssh-add -l >/dev/null 2>&1
-    ssh-add --apple-use-keychain --apple-load-keychain (string sub -e -4 $HOME/.ssh/*.pub) >/dev/null 2>&1
+    ssh-add --apple-use-keychain (string sub -e -4 $HOME/.ssh/*.pub)
 end
 
 # Exa
@@ -54,4 +54,8 @@ end
 function symcrash
     set -gx DEVELOPER_DIR (xcode-select --print-path)
     /Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash $argv
+end
+
+function update_brewfile
+    brew bundle dump --file=$HOME/.kazec/sync/brew/Brewfile --force
 end

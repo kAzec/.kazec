@@ -6,7 +6,7 @@ set sync_dirs (dirname $sync_files)
 set sync_dst_dirs (cat $sync_files)
 
 for sf in $sync_files
-    set -l src_dir (dirname $sf)
+    set -l src_dir (realpath (dirname $sf))
     set -l dst_dir (string replace -r '^~' $HOME (cat $sf))
     printf 'Syncing contents of %s to %s:\n' $src_dir $dst_dir
 

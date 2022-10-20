@@ -21,7 +21,7 @@ set -x CDPATH $CDPATH . ~ $HOME/Projects
 begin
     set -l brew '/opt/homebrew/bin/brew'
     if [ (/usr/bin/uname -m) != 'arm64' ]
-        set -l brew '/usr/local/bin/brew'
+        set brew '/usr/local/bin/brew'
     end
     [ -f $brew ] && eval ($brew shellenv)
 end
@@ -65,6 +65,10 @@ if set -q WARP_ABBR_COMPAT_ALIAS
     set -g WARP_ABBR_COMPAT_ALIAS (string split -n '\n' (abbr -l))
 end
 
+function source_if -a file
+    [ -f $file ] && source $file
+end
+
 # Git
 source $FISH_HOME/git.fish
 
@@ -72,9 +76,7 @@ source $FISH_HOME/git.fish
 source $FISH_HOME/misc.fish
 
 # Local
-if [ -f $FISH_HOME/local.fish ]
-    source $FISH_HOME/local.fish
-end
+source_if $FISH_HOME/local.fish
 
 # abbr -> alias
 if set -q WARP_ABBR_COMPAT_ALIAS
@@ -99,10 +101,11 @@ if set -q WARP_ABBR_COMPAT_ALIAS
     end
 end
 
-# Autojump
-set -l autojump $HOMEBREW_PREFIX/share/autojump/autojump.fish; [ -f $autojump ] && source $autojump
+# Source fzf
+source_if $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.fish
 
-# Parallel
-if [ -f (which env_parallel.fish) ]
-    source (which env_parallel.fish)
-end
+# Source autojump
+source_if $HOMEBREW_PREFIX/share/autojump/autojump.fish
+
+# Source parallel
+source_if (which env_parallel.fish)
