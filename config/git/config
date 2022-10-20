@@ -23,6 +23,7 @@
 	autoStash = true
 [push]
 	autoSetupRemote = true
+	recurseSubmodules = on-demand
 [merge]
 	tool = smerge
 [safe]
