@@ -76,8 +76,9 @@ abbr -g glg 'git log --topo-order --graph --pretty=format:$_git_log_oneline_form
 abbr -g glc 'git shortlog --summary --numbered'
 
 # Merge (m)
-abbr -g gm 'git merge'
-abbr -g gmF 'git merge --no-ff'
+abbr -g gm 'git merge --no-edit'
+abbr -g gme 'git merge --edit'
+abbr -g gmF 'git merge --no-edit --no-ff'
 abbr -g gma 'git merge --abort'
 abbr -g gmc 'git merge --continue'
 abbr -g gmC 'git merge --no-commit'
