@@ -21,6 +21,7 @@
 	defaultBranch = master
 [pull]
 	autoStash = true
+	rebase = false
 [push]
 	autoSetupRemote = true
 	recurseSubmodules = on-demand
