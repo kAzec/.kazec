@@ -25,6 +25,7 @@
 [push]
 	autoSetupRemote = true
 	recurseSubmodules = on-demand
+	default = current
 [merge]
 	tool = smerge
 [safe]

@@ -105,6 +105,7 @@ abbr -g grs 'git rebase --skip'
 
 # Stash (s)
 abbr -g gs 'git stash'
+abbr -g gss 'git stash --staged'
 abbr -g gsa 'git stash apply'
 abbr -g gsx 'git stash drop'
 abbr -g gsl 'git stash list'

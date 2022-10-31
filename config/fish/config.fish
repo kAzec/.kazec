@@ -15,7 +15,7 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
 
-set -x PATH $HOME/{.scripts,.cargo/bin} $PATH
+set -x PATH $HOME/{.scripts,.cargo/bin,.go/bin} $PATH
 set -x CDPATH $CDPATH . ~ $HOME/Projects
 
 begin
