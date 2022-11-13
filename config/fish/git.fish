@@ -93,6 +93,7 @@ abbr -g gpA 'git push --all && git push --tags'
 abbr -g gpt 'git push --tags'
 abbr -g gP 'branch=(git-branch-current 2>/dev/null) git pull'
 abbr -g gPr 'branch=(git-branch-current 2>/dev/null) git pull --rebase'
+abbr -g gPm 'branch=(git-branch-current 2>/dev/null) git pull --recurse-submodules -j8'
 abbr -g gPp 'branch=(git-branch-current 2>/dev/null) git pull origin $branch && git push origin $branch'
 abbr -g gpp 'branch=(git-branch-current 2>/dev/null) git pull origin $branch && git push origin $branch'
 
