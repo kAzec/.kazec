@@ -180,7 +180,7 @@
 			<key>flutter/flutter</key>
 			<dict>
 				<key>date</key>
-				<date>2022-10-24T08:26:09Z</date>
+				<date>2023-06-22T17:00:09Z</date>
 				<key>entry</key>
 				<dict>
 					<key>name</key>
@@ -288,7 +288,7 @@
 			<key>Armv9_A64_ISA</key>
 			<dict>
 				<key>date</key>
-				<date>2022-10-24T09:00:24Z</date>
+				<date>2022-11-13T14:24:41Z</date>
 				<key>entry</key>
 				<dict>
 					<key>authorLinkHref</key>
@@ -353,7 +353,7 @@
 			<key>Hammerspoon</key>
 			<dict>
 				<key>date</key>
-				<date>2022-09-29T11:16:20Z</date>
+				<date>2023-03-17T02:02:25Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
