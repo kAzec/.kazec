@@ -44,26 +44,6 @@
 				<key>Navigation</key>
 				<string>NO</string>
 				<key>Title</key>
-				<string>Clean</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>cleanBuildFolder:</string>
-				<key>Alternate</key>
-				<string>YES</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEKit.CmdDefinition.CleanBuildFolder</string>
-				<key>Group</key>
-				<string>Product Menu</string>
-				<key>GroupID</key>
-				<string>Xcode.IDEKit.MenuDefinition.Main</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^~$@K</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
 				<string>Clean Build Folder…</string>
 			</dict>
 			<dict>
@@ -177,28 +157,6 @@
 				<string>Navigate Menu for Documentation</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEKit.MenuDefinition.DocViewingNavigateMenu</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>@l</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
-				<string>Jump to…</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>openQuicklyScoped:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEKit.CmdDefinition.JumpTo</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEKit.CmdDefinition.JumpTo</string>
-				<key>Group</key>
-				<string>Navigate Menu for Playground</string>
-				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -556,13 +514,35 @@
 				<key>CommandID</key>
 				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpart</string>
 				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^@.</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Next Counterpart</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToNextCounterpart:</string>
+				<key>Alternate</key>
+				<string>NO</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpart</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpart</string>
+				<key>Group</key>
 				<string>Navigate Menu for Commit Sheet</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^@/</string>
+				<string>^@.</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -584,7 +564,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^@/</string>
+				<string>^@.</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -600,13 +580,35 @@
 				<key>CommandID</key>
 				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithAlternate</string>
 				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^~@.</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Next Counterpart (option)</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToNextCounterpartWithAlternate:</string>
+				<key>Alternate</key>
+				<string>YES</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithAlternate</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithAlternate</string>
+				<key>Group</key>
 				<string>Navigate Menu for Commit Sheet</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@/</string>
+				<string>^~@.</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -628,7 +630,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@/</string>
+				<string>^~@.</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -644,13 +646,35 @@
 				<key>CommandID</key>
 				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithShiftPlusAlternate</string>
 				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^~@&gt;</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Next Counterpart (shift+option)</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToNextCounterpartWithShiftPlusAlternate:</string>
+				<key>Alternate</key>
+				<string>YES</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithShiftPlusAlternate</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToNextCounterpartWithShiftPlusAlternate</string>
+				<key>Group</key>
 				<string>Navigate Menu for Commit Sheet</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@?</string>
+				<string>^~@&gt;</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -672,7 +696,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@?</string>
+				<string>^~@&gt;</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -688,13 +712,35 @@
 				<key>CommandID</key>
 				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpart</string>
 				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^@,</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Previous Counterpart</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToPreviousCounterpart:</string>
+				<key>Alternate</key>
+				<string>NO</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpart</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpart</string>
+				<key>Group</key>
 				<string>Navigate Menu for Commit Sheet</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^@.</string>
+				<string>^@,</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -716,7 +762,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^@.</string>
+				<string>^@,</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -732,13 +778,35 @@
 				<key>CommandID</key>
 				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpartWithAlternate</string>
 				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^~@,</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Previous Counterpart (option)</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToPreviousCounterpartWithAlternate:</string>
+				<key>Alternate</key>
+				<string>YES</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpartWithAlternate</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpartWithAlternate</string>
+				<key>Group</key>
 				<string>Navigate Menu for Commit Sheet</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@.</string>
+				<string>^~@,</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -760,11 +828,33 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@.</string>
+				<string>^~@,</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
 				<string>Jump to Previous Counterpart (option)</string>
+			</dict>
+			<dict>
+				<key>Action</key>
+				<string>jumpToPreviousCounterpartWithShiftPlusAlternate:</string>
+				<key>Alternate</key>
+				<string>YES</string>
+				<key>CommandGroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpartWithShiftPlusAlternate</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.JumpToPreviousCounterpartWithShiftPlusAlternate</string>
+				<key>Group</key>
+				<string>Navigate Menu for Asset Catalog Comparison</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Navigate</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>^~@&lt;</string>
+				<key>Navigation</key>
+				<string>YES</string>
+				<key>Title</key>
+				<string>Jump to Previous Counterpart (shift+option)</string>
 			</dict>
 			<dict>
 				<key>Action</key>
@@ -782,7 +872,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@&gt;</string>
+				<string>^~@&lt;</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -804,7 +894,7 @@
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~@&gt;</string>
+				<string>^~@&lt;</string>
 				<key>Navigation</key>
 				<string>YES</string>
 				<key>Title</key>
@@ -846,7 +936,7 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -884,30 +974,6 @@
 			</dict>
 			<dict>
 				<key>Action</key>
-				<string>moveCurrentLineDown:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.MoveLineDown</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.MoveLineDown</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^@</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Structure</string>
-				<key>Title</key>
-				<string>Move Line Down</string>
-			</dict>
-			<dict>
-				<key>Action</key>
 				<string>moveCurrentLineUp:</string>
 				<key>Alternate</key>
 				<string>NO</string>
@@ -942,7 +1008,7 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -967,30 +1033,6 @@
 				<string>Editor Menu for Source Code</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^@</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Structure</string>
-				<key>Title</key>
-				<string>Move Line Up</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>moveCurrentLineUp:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.MoveLineUp</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.MoveLineUp</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -1038,7 +1080,7 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -1076,30 +1118,6 @@
 			</dict>
 			<dict>
 				<key>Action</key>
-				<string>renameRefactor:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.Refactor.Rename</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.Refactor.Rename</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^~r</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Refactor</string>
-				<key>Title</key>
-				<string>Rename…</string>
-			</dict>
-			<dict>
-				<key>Action</key>
 				<string>selectColumnDown:</string>
 				<key>Alternate</key>
 				<string>NO</string>
@@ -1130,11 +1148,11 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~</string>
+				<string>~@</string>
 				<key>Navigation</key>
 				<string>NO</string>
 				<key>Parent Title</key>
@@ -1153,28 +1171,6 @@
 				<string>Editor Menu for Source Code</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^~</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Selection</string>
-				<key>Title</key>
-				<string>Select Column Down</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>selectColumnDown:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.SelectColumnDown</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -1218,11 +1214,11 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
-				<string>^~</string>
+				<string>~@</string>
 				<key>Navigation</key>
 				<string>NO</string>
 				<key>Parent Title</key>
@@ -1241,28 +1237,6 @@
 				<string>Editor Menu for Source Code</string>
 				<key>GroupID</key>
 				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^~</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Selection</string>
-				<key>Title</key>
-				<string>Select Column Up</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>selectColumnUp:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.SelectColumnUp</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -1310,7 +1284,7 @@
 				<key>Group</key>
 				<string>Editor Menu for Playground</string>
 				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
+				<string>Xcode.IDEPlaygroundEditor.MenuDefinition.Editor</string>
 				<key>GroupedAlternate</key>
 				<string>NO</string>
 				<key>Keyboard Shortcut</key>
@@ -1345,110 +1319,6 @@
 				<string>Selection</string>
 				<key>Title</key>
 				<string>Split Selection By Lines</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>splitSelectionByLine:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.SplitSelectionByLines</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.SplitSelectionByLines</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Keyboard Shortcut</key>
-				<string>^~l</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Parent Title</key>
-				<string>Selection</string>
-				<key>Title</key>
-				<string>Split Selection By Lines</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>toggleWrapLines:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>Group</key>
-				<string>Editor Menu for Asset Catalog Comparison</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
-				<string>Wrap Lines</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>toggleWrapLines:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>Group</key>
-				<string>Editor Menu for Playground</string>
-				<key>GroupID</key>
-				<string>Xcode.IDEPegasusPlaygroundEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
-				<string>Wrap Lines</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>toggleWrapLines:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>Group</key>
-				<string>Editor Menu for Source Code</string>
-				<key>GroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
-				<string>Wrap Lines</string>
-			</dict>
-			<dict>
-				<key>Action</key>
-				<string>toggleWrapLines:</string>
-				<key>Alternate</key>
-				<string>NO</string>
-				<key>CommandGroupID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>CommandID</key>
-				<string>Xcode.IDEPegasusSourceEditor.CmdDefinition.WrapLines</string>
-				<key>Group</key>
-				<string>Editor Menu for Stickers</string>
-				<key>GroupID</key>
-				<string>Xcode.DeltaComparisonEditor.MenuDefinition.Editor</string>
-				<key>GroupedAlternate</key>
-				<string>NO</string>
-				<key>Navigation</key>
-				<string>NO</string>
-				<key>Title</key>
-				<string>Wrap Lines</string>
 			</dict>
 			<dict>
 				<key>Action</key>

@@ -13,3 +13,6 @@
 	url = git@github.com:kAzec/prezto.git
 	update = rebase
 	branch = master
+[submodule "scripts/src/git-recover"]
+	path = scripts/src/git-recover
+	url = git@github.com:ethomson/git-recover.git

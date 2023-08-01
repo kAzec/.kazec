@@ -1,22 +1,22 @@
 ############################################################
 # Variables
 ############################################################
-set -x LANG en_US.UTF-8
-set -x EDITOR vim
-set -x GIT_OPENER fork
-set -x GIT_EDITOR $EDITOR
-set -x FISH_HOME $__fish_config_dir
+set -gx LANG en_US.UTF-8
+set -gx EDITOR vim
+set -gx GIT_OPENER fork
+set -gx GIT_EDITOR $EDITOR
+set -gx FISH_HOME $__fish_config_dir
 
-set -x GOPATH $HOME/.go
-set -x CURL_HOME $HOME/.config/curl
-set -x PIP_CONFIG_FILE $HOME/.config/pip/config
+set -gx GOPATH $HOME/.go
+set -gx CURL_HOME $HOME/.config/curl
+set -gx PIP_CONFIG_FILE $HOME/.config/pip/config
 
-set -x XDG_CONFIG_HOME $HOME/.config
-set -x XDG_DATA_HOME $HOME/.local/share
-set -x XDG_STATE_HOME $HOME/.local/state
+set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_DATA_HOME $HOME/.local/share
+set -gx XDG_STATE_HOME $HOME/.local/state
 
-set -x PATH $HOME/{.scripts,.cargo/bin,.go/bin} $PATH
-set -x CDPATH $CDPATH . ~ $HOME/Projects
+set -gx PATH $HOME/{.scripts,.cargo/bin,.go/bin} $PATH
+set -gx CDPATH $CDPATH . ~ $HOME/Projects
 
 begin
     set -l brew '/opt/homebrew/bin/brew'
@@ -26,20 +26,20 @@ begin
     [ -f $brew ] && eval ($brew shellenv)
 end
 
-set -x HOMEBREW_NO_ANALYTICS 1
-set -x HOMEBREW_NO_AUTO_UPDATE 1
-set -x HOMEBREW_NO_GITHUB_API 1
-set -x HOMEBREW_NO_INSTALL_CLEANUP 1
-set -x HOMEBREW_NO_INSTALL_UPGRADE 1
-set -x HOMEBREW_NO_INSECURE_REDIRECT 1
+set -gx HOMEBREW_NO_ANALYTICS 1
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
+set -gx HOMEBREW_NO_GITHUB_API 1
+set -gx HOMEBREW_NO_INSTALL_CLEANUP 1
+set -gx HOMEBREW_NO_INSTALL_UPGRADE 1
+set -gx HOMEBREW_NO_INSECURE_REDIRECT 1
 
 ############################################################
 # Prompt
 ############################################################
 
 if status is-interactive
-    if [ $TERM_PROGRAM = WarpTerminal ]
-        [ -z $FISH_ROOT_PID ] && set -x FISH_ROOT_PID $fish_pid
+    if [ "$TERM_PROGRAM" = "WarpTerminal" ]
+        [ -z $FISH_ROOT_PID ] && set -gx FISH_ROOT_PID $fish_pid
         if [ $fish_pid = $FISH_ROOT_PID ]
             # Disable custom prompt in root Warp shell
             functions -e fish_prompt
@@ -109,3 +109,6 @@ source_if $HOMEBREW_PREFIX/share/autojump/autojump.fish
 
 # Source parallel
 source_if (which env_parallel.fish)
+
+# Source thefuck
+thefuck --alias | source

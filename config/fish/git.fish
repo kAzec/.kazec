@@ -3,6 +3,11 @@ set -x _git_log_medium_format (echo (set_color -o)"Commit:"(set_color normal)" "
 set -x _git_log_oneline_format (echo (set_color green)"%h"(set_color normal)" %s"(set_color red)"%d"(set_color normal)"%n")
 set -x _git_log_brief_format (echo (set_color green)"%h"(set_color normal)" %s%n"(set_color blue)%ar by %an""(set_color red)"%d"(set_color normal)"%n")
 
+# Autosave
+# if command -v autosaved
+#     autosaved start
+# end
+
 # Add (a)
 abbr -g ga 'git add'
 abbr -g gaa 'git add --all'
@@ -13,6 +18,7 @@ abbr -g gau 'git add --update'
 abbr -g gb 'git branch'
 abbr -g gba 'git branch --all --verbose'
 abbr -g gbc 'git checkout -b'
+abbr -g gbf 'git branch -f'
 abbr -g gbd 'git branch --delete'
 abbr -g gbD 'git branch --delete --force'
 abbr -g gbl 'git branch --verbose'
@@ -36,10 +42,16 @@ abbr -g gcam 'git commit --all --message'
 abbr -g gcAm 'git add . && git commit --all --message'
 abbr -g gco 'git checkout'
 abbr -g gcO 'git checkout --force'
+abbr -g gcD 'git checkout --detach'
 abbr -g gcf 'git commit --amend --reuse-message HEAD'
+abbr -g gcaf 'git commit --all --amend --reuse-message HEAD'
 abbr -g gcF 'git commit --verbose --amend'
-abbr -g gcp 'git cherry-pick --ff'
+abbr -g gcp 'git cherry-pick'
 abbr -g gcP 'git cherry-pick --no-commit'
+abbr -g gcpa 'git cherry-pick --abort'
+abbr -g gcpc 'git cherry-pick --continue'
+abbr -g gcpf 'git cherry-pick --ff'
+abbr -g gcpn 'git cherry-pick --no-stat'
 abbr -g gcr 'git revert'
 abbr -g gcR 'git reset "HEAD^"'
 abbr -g gcs 'git show'
@@ -59,6 +71,9 @@ abbr -g gdw 'git diff --cached --word-diff'
 # Fetch (f)
 abbr -g gf 'git fetch'
 abbr -g gfa 'git fetch --all'
+abbr -g gft 'git fetch --tags'
+abbr -g gfat 'git fetch --all --tags'
+abbr -g gfr 'git fetch --recurse-submodules -j8'
 abbr -g gfc 'git clone'
 abbr -g gfcr 'git clone --recurse-submodules -j8'
 
@@ -68,6 +83,7 @@ abbr -g gl 'git_log'
 abbr -g gl1 'git_log -1'
 abbr -g gl2 'git_log -2'
 abbr -g gl3 'git_log -3'
+abbr -g glf 'git_log --first-parent'
 abbr -g glb 'git log --topo-order --pretty=format:$_git_log_brief_format'
 abbr -g gls 'git log --topo-order --stat --pretty=format:$_git_log_medium_format'
 abbr -g gld 'git log --topo-order --stat --patch --full-diff --pretty=format:$_git_log_medium_format'
@@ -77,6 +93,7 @@ abbr -g glc 'git shortlog --summary --numbered'
 
 # Merge (m)
 abbr -g gm 'git merge --no-edit'
+abbr -g gmn 'git merge --no-stat'
 abbr -g gme 'git merge --edit'
 abbr -g gmF 'git merge --no-edit --no-ff'
 abbr -g gma 'git merge --abort'
@@ -86,6 +103,7 @@ abbr -g gmt 'git mergetool'
 
 # Push & Pull (p)
 abbr -g gp 'git push'
+abbr -g gpu 'git push -u'
 abbr -g gpf 'git push --force-with-lease'
 abbr -g gpF 'git push --force'
 abbr -g gpa 'git push --all'
@@ -129,8 +147,8 @@ abbr -g gtv 'git verify-tag'
 # Working Copy (w)
 abbr -g gwr 'git reset --soft'
 abbr -g gwr1 'git reset --soft HEAD~1'
-abbr -g gwR 'git reset --hard'
-abbr -g gwR1 'git reset --hard HEAD~1'
+abbr -g gwR 'git-stash-if-dirty; git reset --hard'
+abbr -g gwR1 'git-stash-if-dirty; git reset --hard HEAD~1'
 abbr -g gwc 'git clean --dry-run'
 abbr -g gwC 'git clean --force'
 abbr -g gwx 'git rm -r'
@@ -148,6 +166,10 @@ function git-dirty -a dir
     not command git -C $dir diff-index --ignore-submodules --cached --quiet HEAD -- >/dev/null 2>&1
     or not command git -C $dir diff --ignore-submodules --no-ext-diff --quiet --exit-code >/dev/null 2>&1
     and echo
+end
+
+function git-stash-if-dirty
+    git-dirty $PWD
 end
 
 function git-commit-lost
@@ -181,7 +203,7 @@ abbr -g goa "git-exec-all --dirty --exec='$GIT_OPENER {}'"
 abbr -g gfa "git-exec-all --exec='git -C {} fetch'"
 abbr -g gpa "git-exec-all --exec='git -C {} push'"
 abbr -g gPa "git-exec-all --exec='git -C {} pull'"
-abbr -g gPpa "git-exec-all --exec='git -C {} pull'"
+abbr -g gPpa "git-exec-all --exec='git -C {} pull && git -C {} push'"
 abbr -g gppa "git-exec-all --exec='git -C {} pull && git -C {} push'"
 function git-exec-all
     argparse -i 'd/dirty' 'l/max_level=?' 'exec=?' 'v/verbose' -- $argv
@@ -202,7 +224,7 @@ function git-exec-all
     end
 
     function git-exec -V _flag_dirty -V _flag_exec -a dir
-        if set -q _flag_dirty || git-dirty $dir
+        if not set -q _flag_dirty || git-dirty $dir
             set -l cmd (string replace -a '{}' (realpath $dir) $_flag_exec)
             echo (set_color -o black)'Command: '(set_color brred)$cmd(set_color normal)
             eval $cmd

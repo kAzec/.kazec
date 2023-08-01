@@ -20,7 +20,7 @@ abbr -g ltg 'l -ha -TL=1 | fzf'
 # Misc
 abbr -g spm 'swift package'
 abbr -g rgf 'rg -F'
-abbr -g ydl youtube-dl
+abbr -g ydl 'yt-dlp'
 abbr -g kxcd 'killall Xcode'
 abbr -g brewU 'brew update && brew upgrade'
 abbr -g sha256 'shasum -a 256'
